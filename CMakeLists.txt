@@ -14,7 +14,10 @@ FetchContent_Declare(googletest
     GIT_TAG        v1.15.2)
 FetchContent_MakeAvailable(googletest)
 
-add_library(kvs_core src/placeholder.cpp)
+add_library(kvs_core
+    src/owning_buffer.cpp
+    src/store.cpp
+)
 target_include_directories(kvs_core PUBLIC include)
 target_link_libraries(kvs_core PRIVATE kvs_warnings)
 
@@ -22,7 +25,11 @@ add_executable(kvs_cli src/main.cpp)
 target_link_libraries(kvs_cli PRIVATE kvs_core kvs_warnings)
 
 enable_testing()
-add_executable(kvs_tests tests/test_placeholder.cpp)
+add_executable(kvs_tests
+    tests/test_value.cpp
+    tests/test_owning_buffer.cpp
+    tests/test_store.cpp
+)
 target_link_libraries(kvs_tests PRIVATE kvs_core kvs_warnings GTest::gtest_main)
 include(GoogleTest)
 gtest_discover_tests(kvs_tests)
