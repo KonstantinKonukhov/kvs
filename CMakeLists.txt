@@ -17,6 +17,7 @@ FetchContent_MakeAvailable(googletest)
 add_library(kvs_core
     src/owning_buffer.cpp
     src/store.cpp
+    src/command.cpp
 )
 target_include_directories(kvs_core PUBLIC include)
 target_link_libraries(kvs_core PRIVATE kvs_warnings)
@@ -29,6 +30,8 @@ add_executable(kvs_tests
     tests/test_value.cpp
     tests/test_owning_buffer.cpp
     tests/test_store.cpp
+    tests/test_command.cpp
+    tests/test_dangling_demo.cpp
 )
 target_link_libraries(kvs_tests PRIVATE kvs_core kvs_warnings GTest::gtest_main)
 include(GoogleTest)

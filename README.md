@@ -16,4 +16,5 @@
 
     ./build/kvs_cli
 
-Поддерживаемые команды CLI: `SET key value`, `GET key`, `DEL key`, `EXIT`.
+Команды CLI: `SET key value`, `GET key`, `DEL key`, `EXISTS key`,
+`TYPE key`, `INCR key`, `EXIT`.

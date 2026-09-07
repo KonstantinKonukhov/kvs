@@ -3,29 +3,29 @@
 
 TEST(Store, SetAndGet) {
     Store store;
-    store.set("key", Value("value"));
-    const Value* v = store.get("key");
-    ASSERT_NE(v, nullptr);
-    EXPECT_EQ(v->str(), "value");
+    store.set("key", Value(std::string("value")));
+    auto v = store.get("key");
+    ASSERT_TRUE(v.has_value());
+    EXPECT_EQ(v->to_display_string(), "value");
 }
 
-TEST(Store, GetMissingReturnsNullptr) {
+TEST(Store, GetMissingReturnsNullopt) {
     Store store;
-    EXPECT_EQ(store.get("missing"), nullptr);
+    EXPECT_FALSE(store.get("missing").has_value());
 }
 
 TEST(Store, Del) {
     Store store;
-    store.set("key", Value("value"));
+    store.set("key", Value(std::string("value")));
     EXPECT_TRUE(store.del("key"));
-    EXPECT_EQ(store.get("key"), nullptr);
-    EXPECT_FALSE(store.del("key")); // второй раз — уже нет
+    EXPECT_FALSE(store.get("key").has_value());
+    EXPECT_FALSE(store.del("key"));
 }
 
 TEST(Store, Size) {
     Store store;
     EXPECT_EQ(store.size(), 0u);
-    store.set("a", Value("1"));
-    store.set("b", Value("2"));
+    store.set("a", Value(std::string("1")));
+    store.set("b", Value(std::string("2")));
     EXPECT_EQ(store.size(), 2u);
 }

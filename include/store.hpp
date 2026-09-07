@@ -1,12 +1,13 @@
 #pragma once
 #include <map>
 #include <string>
+#include <optional>
 #include "value.hpp"
 
 class Store {
 public:
     void set(const std::string& key, Value value);
-    const Value* get(const std::string& key) const;
+    std::optional<Value> get(const std::string& key) const;
     bool del(const std::string& key);
     std::size_t size() const;
 
